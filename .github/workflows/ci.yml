@@ -19,13 +19,13 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm ci
 
       - name: Format Code
-        run: npm run format:check
+        run: pnpm format:check
 
       - name: Linting
-        run: npm run lint -- --max-warnings=0
+        run: pnpm lint -- --max-warnings=0
 
   tests:
     name: tests
@@ -40,7 +40,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm ci
 
       - name: Run tests
-        run: npm run test -- --coverage
+        run: pnpm test -- --coverage
