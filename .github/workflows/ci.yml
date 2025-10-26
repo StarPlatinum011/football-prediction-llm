@@ -31,7 +31,7 @@ jobs:
         run: pnpm format:check
 
       - name: Linting
-        run: pnpm lint -- --max-warnings=0
+        run: pnpm lint --max-warnings=0
 
   tests:
     name: tests
