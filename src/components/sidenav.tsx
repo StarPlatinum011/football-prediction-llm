@@ -1,10 +1,11 @@
-import { HomeIcon, TrophyIcon, BookOpenIcon, CalendarDaysIcon, UserIcon, ArrowLeftStartOnRectangleIcon, GlobeAsiaAustraliaIcon } from "@heroicons/react/16/solid";
+import ThemeToggle from '@/app/ui/theme-toggle';
 import Logo from '../app/ui/logo';
 const SideNav = () => {
     return (
         <div>
             <div>
                 <Logo/>
+                <ThemeToggle/>
             </div>
             <div></div>
             <div></div>

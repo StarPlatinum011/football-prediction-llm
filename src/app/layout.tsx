@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SideNav from '../components/sidenav';
 import { inter } from "./ui/fonts";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "Woodwork.ai",
@@ -18,8 +19,10 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        <SideNav/>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <SideNav/>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
