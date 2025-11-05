@@ -22,6 +22,10 @@
 
  colors: #0f172a, #1e293b, #f8fafc
 
+
+ Dark sidebar: #171815
+ Dark main content: #212121
+ Dark accent: #525152, #292929
 Typography :  Inter or Satoshi font
 
 Clean charts (Recharts or Chart.js)
