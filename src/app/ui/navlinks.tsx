@@ -1,4 +1,4 @@
-import { HomeIcon, TrophyIcon, BookOpenIcon, CalendarDaysIcon, UserIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/16/solid";
+import { HomeIcon, TrophyIcon, Rss, CalendarDaysIcon, UserIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -22,7 +22,7 @@ const links = [
     {
         name: 'Blog',
         href: '/',
-        icon: BookOpenIcon
+        icon: Rss
     },
 ];
 
@@ -35,7 +35,7 @@ const authLinks = [
     {
         name: 'Logout',
         href: '/',
-        icon: ArrowLeftStartOnRectangleIcon
+        icon: LogOutIcon
     },
 ]
 const NavLinks = () => {
