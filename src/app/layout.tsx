@@ -17,11 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} antialiased flex h-screen flex-col md:flex-row md:overflow-hidden`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SideNav/>
-          {children}
+          <div className="w-full flex-none md:w-64">
+            <SideNav/>
+          </div>
+          <div className="grow p-6 md:overflow-y-auto md:p-12">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

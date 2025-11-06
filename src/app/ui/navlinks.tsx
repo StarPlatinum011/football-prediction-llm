@@ -1,3 +1,6 @@
+"use client"
+
+import clsx from "clsx";
 import { HomeIcon, TrophyIcon, Rss, CalendarDaysIcon, UserIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,17 +14,17 @@ const links = [
     },
     {
         name: 'Leagues',
-        href: '/',
+        href: '/leagues',
         icon: TrophyIcon
     },
     {
-        name: 'Calender',
-        href: '/',
+        name: 'Calendar',
+        href: '/calendar',
         icon: CalendarDaysIcon
     },
     {
         name: 'Blog',
-        href: '/',
+        href: '/blog',
         icon: Rss
     },
 ];
@@ -29,12 +32,12 @@ const links = [
 const authLinks = [
     {
         name: 'Account',
-        href: '/',
+        href: '/account',
         icon: UserIcon
     },
     {
         name: 'Logout',
-        href: '/',
+        href: '/logout',
         icon: LogOutIcon
     },
 ]
@@ -43,40 +46,56 @@ const NavLinks = () => {
     const pathname = usePathname();
 
     return (
-        <div>
+        <div className="space-y-8">
             <hr />
-            {
-                links.map((link) => {
-                    const LinkIcon = link.icon;
-                    return(
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            className=""
-                        >
-                            <LinkIcon />
-                            <p>{link.name}</p> 
-                        </Link>
-                    )
-                })
-            }
+            <div>
+
+                {
+                    links.map((link) => {
+                        const LinkIcon = link.icon;
+                        return(
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className={clsx(
+                                    'flex h-12 grow items-center justify-center gap-2 rounded-md bg-background p-3 text-sm font-medium hover:bg-sidebar-accent md:flex-none md:justify-start md:p-2 md:px-3', 
+                                    {
+                                        'bg-sidebar text-(--nav-foreground)': pathname === link.href,
+                                    }
+                                )}
+                            >
+                                <LinkIcon />
+                                <p>{link.name}</p> 
+                            </Link>
+                        )
+                    })
+                }
+            </div>
 
             <hr />
-            {
-                authLinks.map((link) => {
-                    const LinkIcon = link.icon;
-                    return(
-                        <Link
-                         key={link.name}
-                         href={link.href}
-                        >
-                            <LinkIcon />
-                            <p>{link.name}</p>
-                        
-                        </Link>
-                    )
-                })
-            }
+            <div>
+                {
+                    authLinks.map((link) => {
+                        const LinkIcon = link.icon;
+                        return(
+                            <Link
+                            key={link.name}
+                            href={link.href}
+                            className={clsx(
+                                    'flex h-12 grow items-center justify-center gap-2 rounded-md bg-background p-3 text-sm font-medium hover:bg-sidebar-accent md:flex-none md:justify-start md:p-2 md:px-3', 
+                                    {
+                                        'bg-sidebar-accent text-(--nav-foreground)': pathname === link.href,
+                                    }
+                                )}
+                            >
+                                <LinkIcon />
+                                <p>{link.name}</p>
+                            
+                            </Link>
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 };

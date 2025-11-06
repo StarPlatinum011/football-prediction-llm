@@ -1,5 +1,6 @@
 import ThemeToggle from '@/app/ui/theme-toggle';
 import Logo from '../app/ui/logo';
+import NavLinks from '../app/ui/navlinks';
 const SideNav = () => {
     return (
         <div>
@@ -7,7 +8,9 @@ const SideNav = () => {
                 <Logo/>
                 <ThemeToggle/>
             </div>
-            <div></div>
+            <div>
+                <NavLinks />
+            </div>
             <div></div>
         </div>
     );
