@@ -1,5 +1,16 @@
+
 @import "tailwindcss";
 @import "tw-animate-css";
+
+
+html, body, #__next {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+* {
+  @apply border-border outline-ring/50;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -43,21 +54,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* [data-theme='dark'] {
-  --background: black;
-  --foreground: white;
-} */
+
 
 :root {
-
-  --gradient-bg-from: #0b0b20;
-  --gradient-bg-via: #1b103b;
-  --gradient-bg-to: #3a0e49;
-
-  --accent-from: #c471f5;
-  --accent-to: #fa71cd;
-
-
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -90,17 +89,25 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --gradient-dark: linear-gradient(to left bottom,
+    #050509,
+    #080810,
+    #0b0a16,
+    #0e0c1a,
+    #110e1e,
+    #141024,
+    #161129,
+    #1a122f,
+    #201336,
+    #28123d,
+    #311143,
+    #3a0e49
+  );
 }
 
 .dark {
-  --gradient-bg-from: #050509;
-  --gradient-bg-via: #141024;
-  --gradient-bg-to: #3a0e49;
-  
-  --accent-from: #c471f5;
-  --accent-to: #fa71cd;
-
-  --background: oklch(0.145 0 0); /* used: sidebar bg, */
+  --background: oklch(0.205 0 0); /* used: sidebar bg, */
   --foreground: oklch(0.985 0 0); /* used: text color, */
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);  /* used: nav dropdown mobile border*/
@@ -131,6 +138,21 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  --gradient-dark: linear-gradient(to left bottom,
+    #050509,
+    #080810,
+    #0b0a16,
+    #0e0c1a,
+    #110e1e,
+    #141024,
+    #161129,
+    #1a122f,
+    #201336,
+    #28123d,
+    #311143,
+    #3a0e49
+  );
 }
 
 @layer base {
@@ -139,5 +161,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: var(--gradient-dark);
+  }
+}
+
+@layer utilities {
+  .bg-gradient-dark {
+    background-image: var(--gradient-dark);
   }
 }

@@ -15,12 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className} antialiased flex h-screen flex-col md:flex-row md:overflow-hidden`}
-      >
+      <body className={`${inter.className} antialiased`} >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          
-          <div className="grow p-6 md:overflow-y-auto md:p-12 bg-background">
+          <div className="bg-gradient-dark">
             {children}
           </div>
         </ThemeProvider>

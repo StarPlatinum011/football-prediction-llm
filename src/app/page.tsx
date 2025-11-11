@@ -1,14 +1,18 @@
+import Logo from "./ui/logo";
+import ThemeToggle from "./ui/theme-toggle";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-       
-        
-      </footer>
+    <div className="min-h-screen text-foreground flex flex-col items-center">
+      <div className="flex gap-18">
+        <Logo />
+        <ThemeToggle />
+      </div>
+      <div>
+        <h1>The new way of predicting Premiere League results</h1>
+      </div>
+    <footer className="">
+    </footer>
     </div>
   );
 }
