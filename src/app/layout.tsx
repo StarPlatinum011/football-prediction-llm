@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SideNav from '../components/sidenav';
 import { inter } from "./ui/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -20,10 +19,8 @@ export default function RootLayout({
         className={`${inter.className} antialiased flex h-screen flex-col md:flex-row md:overflow-hidden`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="w-full flex-none md:w-64">
-            <SideNav/>
-          </div>
-          <div className="grow p-6 md:overflow-y-auto md:p-12">
+          
+          <div className="grow p-6 md:overflow-y-auto md:p-12 bg-background">
             {children}
           </div>
         </ThemeProvider>

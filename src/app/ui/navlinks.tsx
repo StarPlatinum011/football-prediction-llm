@@ -14,30 +14,30 @@ const links = [
     },
     {
         name: 'Leagues',
-        href: '/leagues',
+        href: '#leagues',
         icon: TrophyIcon
     },
     {
         name: 'Calendar',
-        href: '/calendar',
+        href: '/#alendar',
         icon: CalendarDaysIcon
     },
     {
         name: 'Blog',
-        href: '/blog',
+        href: '#blog',
         icon: Rss
     },
 ];
 
 const authLinks = [
     {
-        name: 'Account',
-        href: '/account',
+        name: 'Profile',
+        href: '#profile',
         icon: UserIcon
     },
     {
         name: 'Logout',
-        href: '/logout',
+        href: '#logout',
         icon: LogOutIcon
     },
 ]
@@ -58,7 +58,7 @@ const NavLinks = () => {
                                 key={link.name}
                                 href={link.href}
                                 className={clsx(
-                                    'flex h-12 grow items-center justify-center gap-2 rounded-md bg-background p-3 text-sm font-medium hover:bg-sidebar-accent md:flex-none md:justify-start md:p-2 md:px-3', 
+                                    'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
                                     {
                                         'bg-sidebar text-(--nav-foreground)': pathname === link.href,
                                     }
@@ -82,9 +82,9 @@ const NavLinks = () => {
                             key={link.name}
                             href={link.href}
                             className={clsx(
-                                    'flex h-12 grow items-center justify-center gap-2 rounded-md bg-background p-3 text-sm font-medium hover:bg-sidebar-accent md:flex-none md:justify-start md:p-2 md:px-3', 
+                                    'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
                                     {
-                                        'bg-sidebar-accent text-(--nav-foreground)': pathname === link.href,
+                                        'bg-sidebar text-(--nav-foreground)': pathname === link.href,
                                     }
                                 )}
                             >
