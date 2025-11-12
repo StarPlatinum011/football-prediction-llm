@@ -6,14 +6,19 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-  <div>
+  <div className="flex flex-col h-screen lg:flex-row overflow-hidden">
 
     {/* Layout UI */}
     {/* Place children where you want to render a page or nested layout */}
-    <div className="w-full flex-none md:w-64">
+    <aside className="w-full lg:w-64 lg:h-screen lg:fixed lg:left-0 lg:top-0 border-r border-border bg-background z-40">
         <SideNav/>
-    </div>
-    <main>{children}</main>
+    </aside>
+    {/* Main content - Takes remaining space, offset by sidebar width on desktop */}
+      <main className="flex-1 lg:ml-64 overflow-y-auto bg-background">
+        <div className="p-6 lg:p-8">
+          {children}
+        </div>
+      </main>
   </div>
 
   )

@@ -103,20 +103,7 @@ html, body, #__next {
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --gradient-dark: linear-gradient(to left bottom,
-    #050509,
-    #080810,
-    #0b0a16,
-    #0e0c1a,
-    #110e1e,
-    #141024,
-    #161129,
-    #1a122f,
-    #201336,
-    #28123d,
-    #311143,
-    #3a0e49
-  );
+
 
   --white: oklch(1 0 0);
   --black: oklch(12.382% 0.00233 17.142);
@@ -161,20 +148,7 @@ html, body, #__next {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  --gradient-dark: linear-gradient(to left bottom,
-    #050509,
-    #080810,
-    #0b0a16,
-    #0e0c1a,
-    #110e1e,
-    #141024,
-    #161129,
-    #1a122f,
-    #201336,
-    #28123d,
-    #311143,
-    #3a0e49
-  );
+
 }
 
 @layer base {
@@ -183,14 +157,10 @@ html, body, #__next {
   }
   body {
     @apply bg-background text-foreground;
-    background-image: var(--gradient-dark);
   }
 }
 
 @layer utilities {
-  .bg-gradient-dark {
-    background-image: var(--gradient-dark);
-  }
 
   .animate-aurora {
     animation: aurora 60s linear infinite;

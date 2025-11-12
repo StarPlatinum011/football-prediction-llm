@@ -1,8 +1,8 @@
 
 const Dashboard = () => {
     return (
-        <div>
-            
+        <div className="bg-fuchsia-900">
+            <p>askdfhaksjh</p>
         </div>
     );
 };

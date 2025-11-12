@@ -5,9 +5,8 @@ import { LayoutDashboardIcon, TrophyIcon, Rss, CalendarDaysIcon, UserIcon, LogOu
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from '@/app/ui/theme-toggle';
-import Logo from '../app/ui/logo';
 import { useEffect, useState } from "react";
-
+import LogoCompact from "@/app/ui/logo-compact";
 
 const links = [
     {
@@ -22,7 +21,7 @@ const links = [
     },
     {
         name: 'Calendar',
-        href: '/#alendar',
+        href: '/#calendar',
         icon: CalendarDaysIcon
     },
     {
@@ -44,151 +43,146 @@ const authLinks = [
         icon: LogOutIcon
     },
 ]
-const SideNav = () => {
 
-    const [isOpen, setIsOpen ] = useState(false)
-    const [isScrolled, setIsScrolled ] = useState(false)
-    // const [activeDropdown, setActiveDropdown] = useState(null);
-    
+const SideNav = () => {
+    const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname();
 
+    // Close menu when route changes
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20 )
-        }
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
+        setIsOpen(false)
+    }, [pathname])
 
     return (
-        <>
-            <nav className=' bg-background space-y-4'>
+        <nav className='h-full flex flex-col bg-background p-4 lg:p-6'>
+            {/* Top bar - Logo and controls */}
+            <div className="flex items-center justify-between lg:flex-col lg:items-start lg:space-y-4 lg:mb-8">
                 <div className="flex items-center space-x-2">
-                    <Logo/>
+                    <LogoCompact />
+                </div>
+
+                <div className="flex items-center gap-2 lg:hidden">
                     <ThemeToggle/>
-                </div>
-
-                {/* -------------------//Desktop Navigation --------------------------*/}
-                <div className="hidden md:flex flex-col">
-                    {
-                        links.map((link) => {
-                            const LinkIcon = link.icon;
-                            return(
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={clsx(
-                                        'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
-                                        {
-                                            'bg-sidebar text-(--nav-foreground)': pathname === link.href,
-                                        }
-                                    )}
-                                >
-                                    <LinkIcon />
-                                    <p className="font-medium">{link.name}</p> 
-                                </Link>
-                            )
-                        })
-                    }
-                </div>
-
-                <hr />
-                {/* User Profile Nav  */}
-                <div className="hidden md:flex flex-col">
-                    {
-                        authLinks.map((link) => {
-                            const LinkIcon = link.icon;
-                            return(
-                                <Link
-                                key={link.name}
-                                href={link.href}
-                                className={clsx(
-                                        'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
-                                        {
-                                            'bg-sidebar text-(--nav-foreground)': pathname === link.href,
-                                        }
-                                    )}
-                                >
-                                    <LinkIcon />
-                                    <p>{link.name}</p>
-                                
-                                </Link>
-                            )
-                        })
-                    }
-                </div> 
-
-                {/* Mobile Nav Menu Button */}
-                <button
-                    onClick={()=> setIsOpen(!isOpen)}
-                    className="md:hidden p-2 rounded-lg hover:bg-sidebar transition-colors"
-                >
-                    {
-                        isOpen ? (
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="p-2 rounded-lg hover:bg-sidebar-accent transition-colors"
+                        aria-label="Toggle menu"
+                    >
+                        {isOpen ? (
                             <X className="w-6 h-6 text-foreground" /> 
                         ) : (
                             <Menu className="w-6 h-6 text-foreground"/>
+                        )}
+                    </button>
+                </div>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex lg:flex-col lg:flex-1 lg:space-y-2">
+                {links.map((link) => {
+                    const LinkIcon = link.icon;
+                    return(
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className={clsx(
+                                'flex h-12 items-center gap-3 rounded-md px-3 text-sm font-medium hover:bg-sidebar-accent transition-colors', 
+                                {
+                                    'bg-sidebar-accent': pathname === link.href,
+                                }
+                            )}
+                        >
+                            <LinkIcon className="w-5 h-5" />
+                            <p className="font-medium">{link.name}</p> 
+                        </Link>
+                    )
+                })}
+
+                {/* Spacer to push auth links to bottom */}
+                <div className="flex-1" />
+
+                <hr className="my-4 border-border" />
+
+                {/* User Profile Nav */}
+                {authLinks.map((link) => {
+                    const LinkIcon = link.icon;
+                    return(
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className={clsx(
+                                'flex h-12 items-center gap-3 rounded-md px-3 text-sm font-medium hover:bg-sidebar-accent transition-colors', 
+                                {
+                                    'bg-sidebar-accent': pathname === link.href,
+                                }
+                            )}
+                        >
+                            <LinkIcon className="w-5 h-5" />
+                            <p>{link.name}</p>
+                        </Link>
+                    )
+                })}
+                
+                <div className="mt-4">
+                    <ThemeToggle/>
+                </div>
+            </div>
+
+            {/* Mobile Navigation Dropdown */}
+            <div 
+                className={clsx(
+                    "lg:hidden absolute left-0 right-0 top-full bg-muted border-t border-border shadow-lg overflow-hidden transition-all duration-300 ease-in-out z-50",
+                    isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+                )}
+            >
+                <div className="px-4 py-3 space-y-1">
+                    {links.map((link) => {
+                        const LinkIcon = link.icon;
+                        return(
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className={clsx(
+                                    'flex h-12 items-center gap-3 rounded-md px-3 text-sm font-medium hover:bg-sidebar-accent transition-colors', 
+                                    {
+                                        'bg-sidebar-accent text-foreground': pathname === link.href,
+                                    }
+                                )}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <LinkIcon className="w-5 h-5" />
+                                <p className="font-medium">{link.name}</p> 
+                            </Link>
                         )
-                    }
-                </button>
+                    })}
+                </div>
 
+                <hr className="border-border" />
 
-                {/* ----------------------------Mobile Navigation bar ------------------------------- */}
-                {isOpen && (
-                    <div className="md:hidden bg-muted border-t border-card-foreground shadow-xl animation-duration-initial slide-in-from-top duration-200">
-                        <div className="px-4 py-3 space-y-1">
-                            {
-                                links.map((link) => {
-                                    const LinkIcon = link.icon;
-                                    return(
-                                        <Link
-                                            key={link.name}
-                                            href={link.href}
-                                            className={clsx(
-                                                'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
-                                                {
-                                                    'bg-sidebar text-foreground': pathname === link.href,
-                                                }
-                                            )}
-                                            onClick={()=> setIsOpen(false)}
-                                        >
-                                            <LinkIcon />
-                                            <p className="font-medium">{link.name}</p> 
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </div>
-
-                        <hr />
-                        {/* User Profile Nav  */}
-                        <div className="pt-3 mt-3 border-t border-card-foreground space-y-1 ">
-                            {
-                                authLinks.map((link) => {
-                                    const LinkIcon = link.icon;
-                                    return(
-                                        <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        className={clsx(
-                                                'flex h-12 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sidebar md:flex-none md:justify-start md:p-2 md:px-3', 
-                                                {
-                                                    'bg-sidebar text-foreground': pathname === link.href,
-                                                }
-                                            )}
-                                        >
-                                            <LinkIcon />
-                                            <p>{link.name}</p>
-                                        
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                )} 
-            </nav>
-        </>
+                {/* User Profile Nav */}
+                <div className="px-4 py-3 space-y-1">
+                    {authLinks.map((link) => {
+                        const LinkIcon = link.icon;
+                        return(
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className={clsx(
+                                    'flex h-12 items-center gap-3 rounded-md px-3 text-sm font-medium hover:bg-sidebar-accent transition-colors', 
+                                    {
+                                        'bg-sidebar-accent text-foreground': pathname === link.href,
+                                    }
+                                )}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <LinkIcon className="w-5 h-5" />
+                                <p>{link.name}</p>
+                            </Link>
+                        )
+                    })}
+                </div>
+            </div>
+        </nav>
     );
 };
 
