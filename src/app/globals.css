@@ -2,6 +2,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+ @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
 
 html, body, #__next {
   height: 100%;
@@ -52,7 +60,12 @@ html, body, #__next {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+    /*  aurora animation  */
+  --animate-aurora: aurora 60s linear infinite;
 }
+
+
 
 
 
@@ -104,8 +117,17 @@ html, body, #__next {
     #311143,
     #3a0e49
   );
-}
 
+  --white: oklch(1 0 0);
+  --black: oklch(12.382% 0.00233 17.142);
+  --transparent: transparent;
+  
+  --blue-300: oklch(0.8267 0.0767 241.87);    /* #93c5fd */
+  --blue-400: oklch(0.7373 0.1272 240.78);    /* #60a5fa */
+  --blue-500: oklch(0.6239 0.1864 251.67);    /* #3b82f6 */
+  --indigo-300: oklch(0.7987 0.0954 272.32);  /* #a5b4fc */
+  --violet-200: oklch(0.9046 0.0474 293.00);  /* #ddd6fe */
+}
 .dark {
   --background: oklch(0.205 0 0); /* used: sidebar bg, */
   --foreground: oklch(0.985 0 0); /* used: text color, */
@@ -168,5 +190,9 @@ html, body, #__next {
 @layer utilities {
   .bg-gradient-dark {
     background-image: var(--gradient-dark);
+  }
+
+  .animate-aurora {
+    animation: aurora 60s linear infinite;
   }
 }

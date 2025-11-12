@@ -1,18 +1,39 @@
+'use client'
 import Logo from "./ui/logo";
 import ThemeToggle from "./ui/theme-toggle";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion'
+import React from "react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-foreground flex flex-col items-center">
-      <div className="flex gap-18">
-        <Logo />
-        <ThemeToggle />
-      </div>
-      <div>
-        <h1>The new way of predicting Premiere League results</h1>
-      </div>
-    <footer className="">
-    </footer>
-    </div>
+        <AuroraBackground>
+          <motion.div
+            initial={{ opacity: 0.0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            className="relative flex flex-col gap-4 items-center justify-center px-4"
+          >
+            <div className="flex content-center">
+              <Logo /> 
+              <ThemeToggle />
+            </div>
+
+            <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
+              Background lights are cool you know.
+            </div>
+            <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
+              And this, is chemical burn.
+            </div>
+            <Button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+              Debug now
+            </Button>
+          </motion.div>
+        </AuroraBackground>
   );
 }
