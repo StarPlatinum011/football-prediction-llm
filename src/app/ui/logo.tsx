@@ -1,11 +1,12 @@
 import {inter} from '@/app/ui/fonts'
 import { Globe2Icon } from 'lucide-react';
+import Link from 'next/link';
 const Logo = () => {
     return (
-        <div className={`${inter.className} flex flex-row items-center leading-none text-white`}>
-            <Globe2Icon className='h-12 w-12 text-(--color-foreground)'/>
-            <p className='text-[36px] text-(--color-foreground)'>Woodwork.ai</p>
-        </div>
+        <Link href={'/'} className={`${inter.className} flex flex-row items-center leading-none gap-1 text-white`}>
+            <Globe2Icon className='lg:h-12 lg:w-12 text-(--color-foreground)'/>
+            <p className='text-xl md:text-4xl font-bold text-(--color-foreground) text-center'>Woodwork.ai</p>
+        </Link>
     );
 };
 
