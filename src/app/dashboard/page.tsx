@@ -1,8 +1,9 @@
+import { CommandMenu } from '../../components/command-menu';
 
 const Dashboard = () => {
     return (
-        <div className="bg-fuchsia-900">
-            <p>askdfhaksjh</p>
+        <div className="">
+            <CommandMenu />
         </div>
     );
 };

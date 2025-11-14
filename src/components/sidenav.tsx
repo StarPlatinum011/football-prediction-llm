@@ -54,11 +54,11 @@ const SideNav = () => {
     }, [pathname])
 
     return (
-        <nav className='h-full flex flex-col bg-background p-4 lg:p-6'>
+        <nav className='lg:h-full flex flex-col bg-background p-4 lg:p-6 relative'>
             {/* Top bar - Logo and controls */}
             <div className="flex items-center justify-between lg:flex-col lg:items-start lg:space-y-4 lg:mb-8">
                 <div className="flex items-center space-x-2">
-                    <LogoCompact />
+                    <LogoCompact/>
                 </div>
 
                 <div className="flex items-center gap-2 lg:hidden">
