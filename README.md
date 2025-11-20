@@ -1,36 +1,188 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[ User Browser ]
+        ↓
+  https://yourapp.com
+        ↓
+ ┌────────────────────────────┐
+ │ Cloud Run Service #1       │
+ │ "nextjs-frontend"          │
+ │ - Handles /, /predict UI   │
+ │ - Sends POST /predict →    │
+ │   internal backend URL     │
+ └───────────┬────────────────┘
+             │
+             │ Internal HTTP call
+             ↓
+ ┌────────────────────────────┐
+ │ Cloud Run Service #2       │
+ │ "llm-predictor"            │
+ │ - LangChain inference       │
+ │ - Talks to GCP Vertex AI or |
+ │   local LLMs via API        │
+ └────────────────────────────┘
 
-## Getting Started
+ colors: #0f172a, #1e293b, #f8fafc
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ Dark sidebar: #171815
+ Dark main content: #212121
+ Dark accent: #525152, #292929
+Typography :  Inter or Satoshi font
+
+Clean charts (Recharts or Chart.js)
+
+
+football-predictor/
+├── src/
+│   ├── app/                              # Next.js App Router
+│   │   ├── (public)/
+│   │   │   ├── page.tsx                 # Landing page
+│   │   │   └── predictions/
+│   │   │       └── [matchId]/
+│   │   │           └── page.tsx
+│   │   ├── (dashboard)/
+│   │   │   ├── layout.tsx
+│   │   │   ├── dashboard/
+│   │   │   │   └── page.tsx
+│   │   │   └── history/
+│   │   │       └── page.tsx
+│   │   ├── api/
+│   │   │   ├── predict/
+│   │   │   │   └── route.ts            # Prediction endpoint
+│   │   │   ├── matches/
+│   │   │   │   └── route.ts            # Fetch matches
+│   │   │   └── webhook/
+│   │   │       └── route.ts            # For scheduled jobs
+│   │   ├── layout.tsx
+│   │   └── globals.css
+│   │
+│   ├── components/
+│   │   ├── ui/                          # Shadcn/ui components
+│   │   ├── features/
+│   │   │   ├── predictions/
+│   │   │   │   ├── prediction-card.tsx
+│   │   │   │   ├── match-list.tsx
+│   │   │   │   └── confidence-meter.tsx
+│   │   │   └── stats/
+│   │   │       └── performance-chart.tsx
+│   │   └── layout/
+│   │       ├── navbar.tsx
+│   │       └── footer.tsx
+│   │
+│   ├── lib/
+│   │   ├── langchain/
+│   │   │   ├── chains/
+│   │   │   │   ├── prediction-chain.ts  # Main prediction logic
+│   │   │   │   └── analysis-chain.ts    # Match analysis
+│   │   │   ├── prompts/
+│   │   │   │   ├── prediction-prompt.ts
+│   │   │   │   └── system-prompts.ts
+│   │   │   ├── tools/
+│   │   │   │   ├── stats-retriever.ts   # Custom tool for stats
+│   │   │   │   └── odds-scraper.ts
+│   │   │   └── memory/
+│   │   │       └── prediction-memory.ts
+│   │   │
+│   │   ├── data/
+│   │   │   ├── football-api.ts          # API-Football, Rapid API
+│   │   │   ├── scrapers/
+│   │   │   │   ├── base-scraper.ts
+│   │   │   │   └── stats-scraper.ts
+│   │   │   └── processors/
+│   │   │       └── data-normalizer.ts
+│   │   │
+│   │   ├── db/
+│   │   │   ├── prisma.ts                # Prisma client
+│   │   │   ├── queries/
+│   │   │   │   ├── predictions.ts
+│   │   │   │   └── matches.ts
+│   │   │   └── cache/
+│   │   │       └── redis-client.ts
+│   │   │
+│   │   └── utils/
+│   │       ├── validators.ts
+│   │       └── formatters.ts
+│   │
+│   ├── services/
+│   │   ├── prediction-service.ts        # Core prediction logic
+│   │   ├── match-service.ts             # Match data management
+│   │   ├── analytics-service.ts         # Track accuracy
+│   │   └── notification-service.ts
+│   │
+│   ├── types/
+│   │   ├── match.ts
+│   │   ├── prediction.ts
+│   │   └── stats.ts
+│   │
+│   └── actions/                         # Server actions
+│       ├── predict-match.ts
+│       └── fetch-matches.ts
+│
+├── prisma/
+│   ├── schema.prisma
+│   └── migrations/
+│
+├── cloud-functions/                     # Google Cloud Functions
+│   ├── scheduled-predictions/
+│   │   ├── index.ts                    # Daily match predictions
+│   │   └── package.json
+│   ├── data-sync/
+│   │   └── index.ts                    # Sync match data
+│   └── result-checker/
+│       └── index.ts                    # Check & update results
+│
+├── cloud-run/                          # If using Cloud Run
+│   ├── prediction-worker/
+│   │   ├── Dockerfile
+│   │   └── src/
+│   └── data-ingestion/
+│       ├── Dockerfile
+│       └── src/
+│
+├── .github/                            # CI/CD
+│   └── workflows/
+│       ├── deploy-app.yml             # Deploy Next.js to Cloud Run
+│       ├── deploy-functions.yml       # Deploy Cloud Functions
+│       └── test.yml
+│
+├── cloudbuild.yaml                    # Google Cloud Build config
+├── terraform/                         # Infrastructure as Code
+│   ├── main.tf
+│   ├── variables.tf
+│   └── modules/
+│       ├── cloud-run/
+│       ├── cloud-functions/
+│       └── database/
+│
+├── scripts/
+│   ├── seed-data.ts
+│   ├── train-model.ts                # If doing fine-tuning
+│   └── backtest.ts                   # Test predictions on historical
+│
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+├── .env.example
+├── .env.local
+├── next.config.js
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Key Architecture Decisions:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**1. LangChain Structure:**
+- **Chains**: Compose your prediction logic using LangChain chains
+- **Prompts**: Store all prompts separately for easy iteration
+- **Tools**: Custom tools to fetch stats, historical data, injury reports
+- **Memory**: Store context about teams, recent form, etc.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**2. Data Flow:**
+```
+Football APIs → Cloud Function (daily sync) → Firestore/Cloud SQL
+                                            ↓
+User Request → Next.js API → LangChain → Gemini (free) → Prediction
+                            ↓
+                    Store in Database → Display to User
